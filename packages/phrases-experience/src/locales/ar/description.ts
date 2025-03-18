@@ -10,6 +10,8 @@ const description = {
   sign_in: 'تسجيل الدخول',
   privacy_policy: 'سياسة الخصوصية',
   create_account: 'إنشاء حساب',
+  /** UNTRANSLATED */
+  switch_account: 'Switch account',
   or: 'أو',
   and: 'و',
   enter_passcode: 'تم إرسال رمز التحقق إلى {{address}} {{target}} الخاص بك',
@@ -99,6 +101,11 @@ const description = {
   support_email: 'Support email: <link></link>',
   /** UNTRANSLATED */
   support_website: 'Support website: <link></link>',
+  /** UNTRANSLATED */
+  account_mismatch_title: 'You are currently signed in as {{account}}',
+  /** UNTRANSLATED */
+  account_mismatch_description:
+    'Please switch to the account that associated with this magic link, and try again.',
 };
 
 export default Object.freeze(description);
