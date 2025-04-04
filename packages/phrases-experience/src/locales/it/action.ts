@@ -1,6 +1,7 @@
 const action = {
   sign_in: 'Accedi',
   continue: 'Continua',
+  continue_as: 'Continua come {{name}}',
   create_account: 'Crea account',
   create_account_without_linking: 'Creare uno nuovo invece',
   create: 'Crea',
@@ -31,6 +32,7 @@ const action = {
   single_sign_on: 'Single Sign-On',
   authorize: 'Autorizza',
   use_another_account: 'Usa un altro account',
+  back_to_current_account: "Torna all'account attuale",
 };
 
 export default Object.freeze(action);

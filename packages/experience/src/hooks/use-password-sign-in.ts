@@ -1,4 +1,8 @@
-import { SignInIdentifier, type PasswordVerificationPayload } from '@logto/schemas';
+import {
+  InteractionEvent,
+  SignInIdentifier,
+  type PasswordVerificationPayload,
+} from '@logto/schemas';
 import { useCallback, useMemo, useState } from 'react';
 
 import { signInWithPasswordIdentifier } from '@/apis/experience';
@@ -8,7 +12,7 @@ import type { ErrorHandlers } from '@/hooks/use-error-handler';
 import useErrorHandler from '@/hooks/use-error-handler';
 
 import useGlobalRedirectTo from './use-global-redirect-to';
-import usePreSignInErrorHandler from './use-pre-sign-in-error-handler';
+import useSubmitInteractionErrorHandler from './use-submit-interaction-error-handler';
 
 const usePasswordSignIn = () => {
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -21,7 +25,7 @@ const usePasswordSignIn = () => {
 
   const handleError = useErrorHandler();
   const asyncSignIn = useApi(signInWithPasswordIdentifier);
-  const preSignInErrorHandler = usePreSignInErrorHandler();
+  const preSignInErrorHandler = useSubmitInteractionErrorHandler(InteractionEvent.SignIn);
 
   const errorHandlers: ErrorHandlers = useMemo(
     () => ({
@@ -34,7 +38,7 @@ const usePasswordSignIn = () => {
   );
 
   const onSubmit = useCallback(
-    async (payload: PasswordVerificationPayload) => {
+    async (payload: PasswordVerificationPayload, captchaToken?: string) => {
       const { identifier } = payload;
 
       // Check if the email is registered with any SSO connectors. If the email is registered with any SSO connectors, we should not proceed to the next step
@@ -46,7 +50,7 @@ const usePasswordSignIn = () => {
         }
       }
 
-      const [error, result] = await asyncSignIn(payload);
+      const [error, result] = await asyncSignIn(payload, captchaToken);
 
       if (error) {
         await handleError(error, errorHandlers);
